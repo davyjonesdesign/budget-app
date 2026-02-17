@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import { supabase, getCurrentUser } from '@/lib/supabase/client'
 import Button from '@/components/ui/Button'
 import { ds } from '@/lib/design-system'
-import { Check, ArrowRight, DollarSign, Calendar, Target, Sparkles, Plus, Trash2 } from 'lucide-react'
+import { Check, ArrowRight, DollarSign, Target, Sparkles, Plus, Trash2 } from 'lucide-react'
 
 export default function OnboardingPage() {
   const [step, setStep] = useState(0)
@@ -136,19 +136,14 @@ export default function OnboardingPage() {
       icon: Sparkles
     },
     {
-      title: "Your monthly income",
-      subtitle: "How much do you typically make per month?",
+      title: "Your income",
+      subtitle: "Add your paycheck amount and payday schedule",
       icon: DollarSign
     },
     {
       title: "Your checking account",
       subtitle: "What's your current balance?",
       icon: Check
-    },
-    {
-      title: "When do you get paid?",
-      subtitle: "We'll track your paydays automatically",
-      icon: Calendar
     },
     {
       title: "Quick bill setup",
@@ -215,52 +210,6 @@ export default function OnboardingPage() {
           )}
 
           {step === 1 && (
-            <div>
-              <label className={`block text-sm font-medium ${ds.text.label} mb-2`}>
-                Monthly Income (after taxes)
-              </label>
-              <div className="relative">
-                <span className={`absolute left-4 top-4 text-2xl ${ds.text.secondary}`}>$</span>
-                <input
-                  type="number"
-                  step="0.01"
-                  value={monthlyIncome}
-                  onChange={e => setMonthlyIncome(e.target.value)}
-                  className={`${ds.input.base} pl-12 text-2xl py-3`}
-                  placeholder="3000"
-                  autoFocus
-                />
-              </div>
-              <p className={`text-sm ${ds.text.secondary} mt-2`}>
-                This is your "total intake" - we'll show this at the top of your budget
-              </p>
-            </div>
-          )}
-
-          {step === 2 && (
-            <div>
-              <label className={`block text-sm font-medium ${ds.text.label} mb-2`}>
-                Current Checking Balance
-              </label>
-              <div className="relative">
-                <span className={`absolute left-4 top-4 text-2xl ${ds.text.secondary}`}>$</span>
-                <input
-                  type="number"
-                  step="0.01"
-                  value={checkingBalance}
-                  onChange={e => setCheckingBalance(e.target.value)}
-                  className={`${ds.input.base} pl-12 text-2xl py-3`}
-                  placeholder="500"
-                  autoFocus
-                />
-              </div>
-              <p className={`text-sm ${ds.text.secondary} mt-2`}>
-                We'll track running totals from this starting point
-              </p>
-            </div>
-          )}
-
-          {step === 3 && (
             <div className="space-y-6">
               <div>
                 <label className={`block text-sm font-medium ${ds.text.label} mb-3`}>
@@ -295,6 +244,24 @@ export default function OnboardingPage() {
               </div>
 
               <div>
+                <label className={`block text-sm font-medium ${ds.text.label} mb-2`}>
+                  {paydayFrequency === 'biweekly' ? 'Paycheck amount (after taxes)' : 'Monthly income (after taxes)'}
+                </label>
+                <div className="relative">
+                  <span className={`absolute left-4 top-4 text-2xl ${ds.text.secondary}`}>$</span>
+                  <input
+                    type="number"
+                    step="0.01"
+                    value={monthlyIncome}
+                    onChange={e => setMonthlyIncome(e.target.value)}
+                    className={`${ds.input.base} pl-12 text-2xl py-3`}
+                    placeholder={paydayFrequency === 'biweekly' ? '1500' : '3000'}
+                    autoFocus
+                  />
+                </div>
+              </div>
+
+              <div>
                 <label htmlFor="nextPayday" className={`block text-sm font-medium ${ds.text.label} mb-2`}>
                   When is your next payday?
                 </label>
@@ -317,7 +284,30 @@ export default function OnboardingPage() {
             </div>
           )}
 
-          {step === 4 && (
+          {step === 2 && (
+            <div>
+              <label className={`block text-sm font-medium ${ds.text.label} mb-2`}>
+                Current Checking Balance
+              </label>
+              <div className="relative">
+                <span className={`absolute left-4 top-4 text-2xl ${ds.text.secondary}`}>$</span>
+                <input
+                  type="number"
+                  step="0.01"
+                  value={checkingBalance}
+                  onChange={e => setCheckingBalance(e.target.value)}
+                  className={`${ds.input.base} pl-12 text-2xl py-3`}
+                  placeholder="500"
+                  autoFocus
+                />
+              </div>
+              <p className={`text-sm ${ds.text.secondary} mt-2`}>
+                We'll track running totals from this starting point
+              </p>
+            </div>
+          )}
+
+          {step === 3 && (
             <div className="space-y-6">
               {/* Rent */}
               <div className={`${ds.bg.surface} p-4 rounded-lg`}>
@@ -506,8 +496,7 @@ export default function OnboardingPage() {
               onClick={() => setStep(step + 1)}
               disabled={
                 (step === 1 && !monthlyIncome) ||
-                (step === 2 && !checkingBalance) ||
-                (step === 3 && !payday)
+                (step === 2 && !checkingBalance)
               }
               className="flex-1"
             >
