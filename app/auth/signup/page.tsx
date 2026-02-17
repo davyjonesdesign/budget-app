@@ -16,7 +16,7 @@ export default function SignupPage() {
   const [success, setSuccess] = useState(false)
   const router = useRouter()
 
-  const handleSignup = async(e: React.FormEvent) => {
+  const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault()
     setError(null)
     setLoading(true)
@@ -36,7 +36,10 @@ export default function SignupPage() {
     try {
       const { data, error } = await supabase.auth.signUp({
         email,
-        password
+        password,
+        options: {
+          emailRedirectTo: `${window.location.origin}/onboarding`,
+        }
       })
 
       if (error) throw error
@@ -46,14 +49,14 @@ export default function SignupPage() {
           setError('This email is already registered. Please sign in.')
         } else {
           setSuccess(true)
-          setTimeout(() => {
-            router.push('/dashboard')
-          }, 2000)
+          // If email confirmation is disabled, go straight to onboarding
+          if (data.session) {
+            router.push('/onboarding')
+          }
         }
       }
-    } catch (err: unknown) {
-      const message = err instanceof Error ? err.message : String(err)
-      setError(message || 'Failed to create account')
+    } catch (err: any) {
+      setError(err.message || 'Failed to create account')
     } finally {
       setLoading(false)
     }
@@ -69,8 +72,8 @@ export default function SignupPage() {
 
         {success ? (
           <div className={`${ds.alert.success} text-center`}>
-            <p className="font-medium">Account created successfully!</p>
-            <p className="text-sm mt-1">Redirecting to dashboard...</p>
+            <p className="font-medium">Account created!</p>
+            <p className="text-sm mt-1">Check your email to confirm your account, then you'll be redirected to set up your budget.</p>
           </div>
         ) : (
           <form onSubmit={handleSignup} className="space-y-6">

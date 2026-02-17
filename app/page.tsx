@@ -14,12 +14,12 @@ export default function Home() {
     checkAuth()
   }, [])
 
-  const checkAuth = async() => {
+  const checkAuth = async () => {
     try {
       console.log('Checking auth...')
       const user = await getCurrentUser()
       console.log('User:', user)
-
+      
       if (user) {
         // Check if user has completed onboarding
         console.log('Checking for accounts...')
@@ -28,14 +28,14 @@ export default function Home() {
           .select('id')
           .eq('user_id', user.id)
           .limit(1)
-
+        
         console.log('Accounts:', accounts, 'Error:', error)
-
+        
         if (accounts && accounts.length > 0) {
-          console.log('Redirecting to dashboard')
+          console.log('Has accounts - redirecting to dashboard')
           router.push('/dashboard')
         } else {
-          console.log('Redirecting to onboarding')
+          console.log('No accounts - redirecting to onboarding')
           router.push('/onboarding')
         }
       } else {
@@ -75,14 +75,14 @@ export default function Home() {
           >
             Get Started Free
           </Link>
-
+          
           <Link
             href="/auth/login"
             className={`block w-full ${ds.bg.card} text-blue-600 py-3 px-6 rounded-lg font-semibold hover:bg-gray-50 dark:hover:bg-gray-700 transition border ${ds.border.light}`}
           >
             Sign In
           </Link>
-
+          
           <div className="grid grid-cols-3 gap-4 pt-8">
             <div className="text-center">
               <div className="text-2xl mb-1">📅</div>
