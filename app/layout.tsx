@@ -6,6 +6,11 @@ export const metadata: Metadata = {
   title: 'Budgety - Simple Family Budget Tracker',
   description: 'Track your bills, income, and spending with ease',
   manifest: '/manifest.json',
+  icons: {
+    icon: [{ url: '/favicon.svg', type: 'image/svg+xml' }],
+    apple: [{ url: '/logo.svg', type: 'image/svg+xml' }],
+    shortcut: ['/favicon.svg']
+  },
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default',
