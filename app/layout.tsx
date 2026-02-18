@@ -3,13 +3,13 @@ import './globals.css'
 import { ThemeProvider } from '@/components/ThemeProvider'
 
 export const metadata: Metadata = {
-  title: 'Budget App - Simple Family Budget Tracker',
+  title: 'Budgety - Simple Family Budget Tracker',
   description: 'Track your bills, income, and spending with ease',
   manifest: '/manifest.json',
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default',
-    title: 'Budget App'
+    title: 'Budgety'
   }
 }
 

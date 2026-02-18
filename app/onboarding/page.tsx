@@ -7,9 +7,14 @@ import Button from '@/components/ui/Button'
 import { ds } from '@/lib/design-system'
 import { Check, ArrowRight, DollarSign, Target, Sparkles, Plus, Trash2 } from 'lucide-react'
 
+interface User {
+  id: string
+  [key: string]: any
+}
+
 export default function OnboardingPage() {
   const [step, setStep] = useState(0)
-  const [user, setUser] = useState<unknown | null>(null)
+  const [user, setUser] = useState<User | null>(null)
   const router = useRouter()
 
   // Form data

@@ -67,13 +67,13 @@ export default function SignupPage() {
       <div className={`max-w-md w-full ${ds.bg.card} ${ds.radius.md} ${ds.shadow.lg} p-8`}>
         <div className="text-center mb-8">
           <h1 className={`text-3xl font-bold ${ds.text.primary} mb-2`}>Get Started</h1>
-          <p className={ds.text.secondary}>Create your free budget account</p>
+          <p className={ds.text.secondary}>Create your free budgety account</p>
         </div>
 
         {success ? (
           <div className={`${ds.alert.success} text-center`}>
             <p className="font-medium">Account created!</p>
-            <p className="text-sm mt-1">Check your email to confirm your account, then you'll be redirected to set up your budget.</p>
+            <p className="text-sm mt-1">Check your email to confirm your account, then you'll be redirected to set up your budgety budget.</p>
           </div>
         ) : (
           <form onSubmit={handleSignup} className="space-y-6">

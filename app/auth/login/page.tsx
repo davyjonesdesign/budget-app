@@ -43,7 +43,7 @@ export default function LoginPage() {
       <div className={`max-w-md w-full ${ds.bg.card} ${ds.radius.md} ${ds.shadow.lg} p-8`}>
         <div className="text-center mb-8">
           <h1 className={`text-3xl font-bold ${ds.text.primary} mb-2`}>Welcome Back</h1>
-          <p className={ds.text.secondary}>Sign in to your budget account</p>
+          <p className={ds.text.secondary}>Sign in to your budgety account</p>
         </div>
 
         <form onSubmit={handleLogin} className="space-y-6">

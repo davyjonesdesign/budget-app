@@ -61,7 +61,7 @@ export default function Home() {
       <div className="max-w-md w-full space-y-8 text-center">
         <div>
           <h1 className={`text-4xl font-bold ${ds.text.primary} mb-2`}>
-            Budget App
+            Budgety
           </h1>
           <p className={ds.text.secondary}>
             Simple family budget tracking for bills, income, and spending
