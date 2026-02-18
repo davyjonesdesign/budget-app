@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Budget App Icon</title>
+  <desc id="desc">Blue rounded square icon featuring a white wallet and upward trend line.</desc>
+  <rect width="512" height="512" rx="112" fill="#2563eb"/>
+  <rect x="92" y="164" width="328" height="220" rx="48" fill="#ffffff"/>
+  <rect x="312" y="220" width="88" height="108" rx="28" fill="#dbeafe"/>
+  <path d="M136 314l82-74 58 52 100-98" fill="none" stroke="#2563eb" stroke-width="24" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="336" cy="272" r="16" fill="#2563eb"/>
+</svg>
