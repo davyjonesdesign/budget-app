@@ -81,6 +81,12 @@ budget-app/
 
 ```
 
+## Brand Icon Source of Truth
+
+- Canonical brand icon SVG: `public/brand-mark.svg`
+- Reuse this file for in-app logo rendering and metadata/favicon references.
+- If a different visual size is needed, scale via CSS/`width`/`height` where it is consumed instead of editing the SVG paths.
+
 ## Building Features
 
 ### Phase 1 (MVP - Week 1-2)

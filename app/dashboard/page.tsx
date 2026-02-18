@@ -147,7 +147,19 @@ export default function DashboardPage() {
       <header className={`${ds.bg.header} shadow-sm sticky top-0 z-40`}>
         <div className="max-w-4xl mx-auto px-4 py-4 sm:px-6">
           <div className="flex items-center justify-between">
-            <h1 className={`text-2xl font-bold ${ds.text.primary}`}>Budget</h1>
+            <h1 className={`text-2xl font-bold ${ds.text.primary}`}>
+              <span className="flex items-center gap-2">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/brand-mark.svg"
+                  alt="Budgety"
+                  width={32}
+                  height={32}
+                  className="h-8 w-8"
+                />
+                <span>Budget</span>
+              </span>
+            </h1>
             <div className="flex items-center gap-3" ref={accountMenuRef}>
               <div className="relative">
                 <button

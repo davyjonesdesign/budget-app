@@ -60,9 +60,13 @@ export default function Home() {
     <main className={`min-h-screen flex flex-col items-center justify-center p-6 ${ds.bg.gradient}`}>
       <div className="max-w-md w-full space-y-8 text-center">
         <div>
-          <h1 className={`text-4xl font-bold ${ds.text.primary} mb-2`}>
-            Budgety
-          </h1>
+          <div className="flex items-center justify-center gap-3 mb-2">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/brand-mark.svg" alt="Budgety" width={40} height={40} className="h-10 w-10" />
+            <h1 className={`text-4xl font-bold ${ds.text.primary}`}>
+              Budgety
+            </h1>
+          </div>
           <p className={ds.text.secondary}>
             Simple family budget tracking for bills, income, and spending
           </p>
