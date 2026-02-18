@@ -11,7 +11,6 @@ import UpcomingBills from '@/components/dashboard/UpcomingBills'
 import AddAccountModal from '@/components/dashboard/AddAccountModal'
 import EditAccountModal from '@/components/dashboard/EditAccountModal'
 import UnifiedActionModal from '@/components/dashboard/UnifiedActionModal'
-import ThemeToggle from '@/components/ThemeToggle'
 import { formatCurrency, formatDate } from '@/lib/utils/date'
 import { Transaction, Account } from '@/types'
 import { ds } from '@/lib/design-system'
@@ -150,7 +149,6 @@ export default function DashboardPage() {
           <div className="flex items-center justify-between">
             <h1 className={`text-2xl font-bold ${ds.text.primary}`}>Budget</h1>
             <div className="flex items-center gap-3" ref={accountMenuRef}>
-              <ThemeToggle />
               <div className="relative">
                 <button
                   type="button"
