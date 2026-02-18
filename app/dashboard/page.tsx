@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { supabase, getCurrentUser, signOut } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
@@ -28,6 +28,8 @@ export default function DashboardPage() {
   const [showAddAccountModal, setShowAddAccountModal] = useState(false)
   const [editingAccount, setEditingAccount] = useState<Account | null>(null)
   const [showActionModal, setShowActionModal] = useState(false)
+  const [isAccountMenuOpen, setIsAccountMenuOpen] = useState(false)
+  const accountMenuRef = useRef<HTMLDivElement | null>(null)
   const router = useRouter()
 
   useEffect(() => {
@@ -39,6 +41,28 @@ export default function DashboardPage() {
     }
     window.addEventListener('add-account', handleAddAccount)
     return () => window.removeEventListener('add-account', handleAddAccount)
+  }, [])
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (accountMenuRef.current && !accountMenuRef.current.contains(event.target as Node)) {
+        setIsAccountMenuOpen(false)
+      }
+    }
+
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setIsAccountMenuOpen(false)
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside)
+    document.addEventListener('keydown', handleEscape)
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+      document.removeEventListener('keydown', handleEscape)
+    }
   }, [])
 
   const checkUser = async() => {
@@ -95,9 +119,20 @@ export default function DashboardPage() {
   }
 
   const handleSignOut = async() => {
+    setIsAccountMenuOpen(false)
     await signOut()
     router.push('/')
   }
+
+  const userEmail = user?.email || ''
+  const initials = userEmail
+    .split('@')[0]
+    .split(/[._\-\s]+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part: string) => part.charAt(0).toUpperCase())
+    .join('') || 'U'
+  const avatarUrl = user?.user_metadata?.avatar_url
 
   if (loading) {
     return (
@@ -114,11 +149,58 @@ export default function DashboardPage() {
         <div className="max-w-4xl mx-auto px-4 py-4 sm:px-6">
           <div className="flex items-center justify-between">
             <h1 className={`text-2xl font-bold ${ds.text.primary}`}>Budget</h1>
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3" ref={accountMenuRef}>
               <ThemeToggle />
-              <Button variant="secondary" size="sm" onClick={handleSignOut}>
-                Sign Out
-              </Button>
+              <div className="relative">
+                <button
+                  type="button"
+                  onClick={() => setIsAccountMenuOpen(prev => !prev)}
+                  className={`h-10 w-10 rounded-full ${ds.bg.card} ${ds.shadow.sm} ring-1 ring-black/10 dark:ring-white/10 flex items-center justify-center overflow-hidden hover:${ds.shadow.md} focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500`}
+                  aria-label="Open account menu"
+                  aria-haspopup="menu"
+                  aria-expanded={isAccountMenuOpen}
+                >
+                  {avatarUrl ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img src={avatarUrl} alt="User avatar" className="h-full w-full object-cover" />
+                  ) : (
+                    <span className={`text-sm font-semibold ${ds.text.primary}`}>{initials}</span>
+                  )}
+                </button>
+
+                {isAccountMenuOpen && (
+                  <div
+                    role="menu"
+                    aria-label="Account menu"
+                    className={`absolute right-0 mt-2 w-52 rounded-xl ${ds.bg.card} ${ds.shadow.lg} border border-black/5 dark:border-white/10 p-2 z-50`}
+                  >
+                    <Link
+                      href="/account"
+                      role="menuitem"
+                      className={`block w-full text-left px-3 py-2 rounded-lg text-sm ${ds.text.primary} ${ds.bg.hover}`}
+                      onClick={() => setIsAccountMenuOpen(false)}
+                    >
+                      Account
+                    </Link>
+                    <Link
+                      href="/settings"
+                      role="menuitem"
+                      className={`block w-full text-left px-3 py-2 rounded-lg text-sm ${ds.text.primary} ${ds.bg.hover}`}
+                      onClick={() => setIsAccountMenuOpen(false)}
+                    >
+                      Settings
+                    </Link>
+                    <button
+                      type="button"
+                      role="menuitem"
+                      onClick={handleSignOut}
+                      className={`block w-full text-left px-3 py-2 rounded-lg text-sm ${ds.text.primary} ${ds.bg.hover}`}
+                    >
+                      Log out
+                    </button>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>
