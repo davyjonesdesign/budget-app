@@ -337,8 +337,7 @@ export default function DashboardPage() {
                     <p className={`text-lg font-semibold ${
                       transaction.type === 'income' ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'
                     }`}>
-                      {transaction.type === 'income' ? '+' : '-'}
-                      {formatCurrency(parseFloat(transaction.amount.toString()))}
+                      {transaction.type === 'income' ? '+' : '-'}{formatCurrency(parseFloat(transaction.amount.toString()))}
                     </p>
                   </div>
                 </Card>
