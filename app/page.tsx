@@ -60,8 +60,9 @@ export default function Home() {
     <main className={`min-h-screen flex flex-col items-center justify-center p-6 ${ds.bg.gradient}`}>
       <div className="max-w-md w-full space-y-8 text-center">
         <div>
-          <h1 className={`text-4xl font-bold ${ds.text.primary} mb-2`}>
-            Budgety
+          <h1 className={`text-4xl font-bold ${ds.text.primary} mb-2 flex items-center justify-center gap-3`}>
+            <img src="/logo.svg" alt="Budgety logo" className="h-10 w-10" />
+            <span>Budgety</span>
           </h1>
           <p className={ds.text.secondary}>
             Simple family budget tracking for bills, income, and spending

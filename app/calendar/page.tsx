@@ -158,7 +158,10 @@ const handleAddTransaction = (date: string) => {
               >
                 ← Back
               </button>
-              <h1 className={`text-2xl font-bold ${ds.text.primary}`}>Budgety Calendar</h1>
+              <h1 className={`text-2xl font-bold ${ds.text.primary} flex items-center gap-2`}>
+                <img src="/logo.svg" alt="Budgety logo" className="h-8 w-8" />
+                <span>Budgety Calendar</span>
+              </h1>
             </div>
             <div className="flex items-center gap-2">
               <div className={`${ds.bg.surface} rounded-lg p-1 flex gap-1`}>
